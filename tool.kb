@@ -1,0 +1,15 @@
+#! /bin/bash
+
+# 统计匹配到的pattern父类型
+pats=(`cat matched.out | awk '{print $1}'`)
+declare -A cnt
+for pat in ${pats[*]} ; do
+    tmp=${pat%/*}
+    tmp=${tmp#*/}
+    tmp=${tmp#*/}
+    let "cnt[$tmp]+=1"
+done
+
+for k in ${!cnt[*]} ; do
+    echo $k : ${cnt[$k]}
+done

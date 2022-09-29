@@ -1,0 +1,20 @@
+./patterns/ifMultiCmp_gcc/one_assign_and_return.cocci ./repo/linux-master/arch/alpha/kernel/core_mcpcia.c
+200
+
+./patterns/delayAssign_gcc/simpleReturn.cocci ./repo/linux-master/arch/arm/probes/uprobes/core.c
+66
+
+./patterns/delayAssign_gcc/simpleReturn.cocci ./repo/linux-master/arch/arm64/kernel/probes/uprobes.c
+156
+
+./patterns/ifMultiCmp_gcc/two_assign_and_return.cocci ./repo/linux-master/./lib/syscall.c
+10  
+
+./patterns/ifMultiCmp_gcc/separate_storeAndUse.cocci ./repo/linux-master/./lib/decompress_unlzma.c
+455 
+
+./patterns/ifMultiCmp_gcc/two_assign_and_return.cocci ./repo/linux-master/./lib/radix-tree.c
+393
+
+./patterns/ifMultiCmp_gcc/one_assign_and_return.cocci ./repo/linux-master/./lib/stackdepot.c
+365 depot_index 是static

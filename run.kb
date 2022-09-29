@@ -1,0 +1,36 @@
+#! /bin/bash
+# some dir
+test_dir=./repo/
+check_dir=./patterns/
+
+# projects=(`ls -F $test_dir | grep "/$"`)
+projects=( linux-master/ )
+checks=(`find $check_dir -name "*\.cocci" -type f`)
+
+> matched.out
+> timeout.out
+cnt=0
+for project in ${projects[*]} ; do
+    echo $project >> matched.out
+    # files=(`find $test_dir$project -name "*\.c" -type f`)
+    files=(`cat ./objs`)
+    echo ${#files[*]} C files in total >> matched.out
+
+    for file in ${files[*]} ; do
+        file=./repo/linux-master/${file%.*}.c
+        echo "      "$file     
+        for check in ${checks[*]} ; do
+            res=`timeout 2s spatch -sp_file $check $file`
+            if [ $? -eq 124 ] ; then
+                echo $check $file >> timeout.out
+            fi
+            if [ -n "$res" ] ; then
+                echo "  "  $check $file >> matched.out
+            fi
+        done
+        ((cnt++))
+        if [ $[cnt%1000] == 0 ] ; then
+            echo $cnt file tested
+        fi
+    done
+done

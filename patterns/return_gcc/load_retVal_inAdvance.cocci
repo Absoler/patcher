@@ -1,6 +1,8 @@
-identifier func =~ "func";
-global idexpression ret;
-
+@load_retVal_inAdvance@
+identifier func;
+idexpression ret;
+position p;
+// 1041
 @@
 (
 
@@ -22,7 +24,7 @@ if(...){
     }
 )
     ...
-*   return <+... ret ...+>;
+*   return <+... ret@p ...+>;
 }
 
 |
@@ -47,7 +49,12 @@ if(...){
     }
 )
     ...
-*   return <+... ret ...+>;
+*   return <+... ret@p ...+>;
 }
 
 )
+
+@script:python@
+p << load_retVal_inAdvance.p;
+@@
+print "hit:" + p[0].line

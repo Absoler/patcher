@@ -1,22 +1,15 @@
 @assign_struct_and_use@
 //  ifMultiCmp_gcc
 identifier typeName, lvar;
-global idexpression cond =~ "[a-z]";
+idexpression cond =~ "[a-z]";
 expression struct other;
+position p;
 @@
 (
-if( <+... cond ...+> ) {
-    ...
-*   struct typeName lvar = {...} ;
-    ...
-    lvar
-    ...
-} else { ... 
-*   other ...}
 
-|
-
-if( <+... cond ...+> ) {
+//1023 1035 1117 ...
+if( <+... 
+*   cond@p ...+> ) {
     ...
 (
 *   struct typeName lvar = ... ;
@@ -30,24 +23,35 @@ if( <+... cond ...+> ) {
     ...
 } 
 ... 
-*   other 
-...
+*   return other ;
+|
+if( <+... 
+*   cond@p ...+> ) {
+    ...
+*   struct typeName lvar = {...} ;
+    ...
+    lvar
+    ...
+} else { 
+    ...
+*   return other;
+}
 
 |
 //140 只要if-branch中返回struct
 
-if ( <+... cond ...+> ){
+if ( <+... 
+*   cond@p ...+> ){
 ...
 *   return other ; 
 ...    
 }
-...
 
 
 |
 //1046
 if ( <+... 
-*   cond ...+> ){
+*   cond@p ...+> ){
     ...
 *   lvar = ...;
     ...
@@ -61,6 +65,6 @@ if ( <+...
 
 @script:python@
 x << assign_struct_and_use.cond;
+p << assign_struct_and_use.p;
 @@
-if len(x) != 0:
-    print "#pat assign_struct_and_use"
+print "hit:" + p[0].line

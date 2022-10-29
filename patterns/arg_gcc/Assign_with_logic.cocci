@@ -1,7 +1,8 @@
 @Assign_with_logic@
-identifier func =~ "func";
-global idexpression g;
+identifier func;
+idexpression g;
 expression e1,e2;
+//1040
 @@
 (
 * func(..., <+... <+... g ...+> || <+... e1 = e2 ...+> ...+> ,...)  \|

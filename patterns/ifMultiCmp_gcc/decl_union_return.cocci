@@ -3,9 +3,10 @@
 global idexpression cond =~ "[a-z]";
 identifier typeName;
 identifier lvar;
+position p;
 @@
 if ( <+...
-*   cond ...+> ){
+*   cond@p ...+> ){
     ...
     union typeName lvar = {...};
     ...
@@ -15,6 +16,6 @@ if ( <+...
 
 @script:python@
 x << decl_union_return.cond;
+p << decl_union_return.p;
 @@
-if len(x) != 0:
-    print "#pat decl_union_return"
+print "hit:" + p[0].line

@@ -1,14 +1,17 @@
 @simpleReturn@
-expression lhs =~ "g_", rval;
+expression lhs, rval;
 assignment operator op;
 statement s;
+position p1, p2;
 @@
 
-lhs op rval;
+lhs@p1 op rval;
 ?s
-*   return lhs;
+*   return lhs@p2;
 
 @script:python@
 n << simpleReturn.lhs;
+p1 << simpleReturn.p1;
+p2 << simpleReturn.p2;
 @@
-print n
+print "hit:" + p1[0].line + " " + p2[0].line

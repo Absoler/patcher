@@ -23,7 +23,7 @@ p << assign_and_return.p;
 x << assign_and_return.cond;
 l << assign_and_return.lvar1;
 @@
-print "position:    " + p[0].line
-print "cond:    " + x
-print "lvar:   " + l
+print "hit:" + p[0].line
+#print "cond:    " + x
+#print "lvar:   " + l
 print ""

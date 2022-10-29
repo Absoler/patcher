@@ -1,7 +1,7 @@
 @two_things@
 //ifMultiCmp_gcc
 //1054 3242
-global idexpression cond =~ "[a-z]", g1, g2;
+idexpression cond =~ "[a-z]", g1, g2;
 expression l1, l2, r1, r2;
 assignment operator op1, op2, op3, op4;
 position p;
@@ -106,8 +106,8 @@ x << two_things.cond;
 l1 << two_things.l1;
 l2 << two_things.l2;
 @@
-print "position:    " + p[0].line
-print " cond: " + x
-print " l1: " + l1
-print " l2: " + l2
+print "hit:" + p[0].line
+#print " cond: " + x
+#print " l1: " + l1
+#print " l2: " + l2
 print ""

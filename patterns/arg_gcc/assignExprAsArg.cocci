@@ -7,10 +7,17 @@ expression union uExp;
 expression l,r;
 global idexpression  g;
 assignment operator op;
-identifier func =~ "func";
+identifier func;
+position p;
+//1682
 @@
 (
-*  func(..., l op sExp, ...)
+*  func(..., l op sExp@p, ...)
 |
-*  func(..., l op uExp, ...)
+*  func(..., l op uExp@p, ...)
 )
+
+@script:python@
+p << assignExprAsArg.p;
+@@ 
+print "hit:"+p[0].line

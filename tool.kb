@@ -1,15 +1,23 @@
 #! /bin/bash
 
 # 统计匹配到的pattern父类型
-pats=(`cat matched.out | awk '{print $1}'`)
-declare -A cnt
-for pat in ${pats[*]} ; do
-    tmp=${pat%/*}
-    tmp=${tmp#*/}
-    tmp=${tmp#*/}
-    let "cnt[$tmp]+=1"
-done
+# pats=(`cat matched.out | awk '{print $1}'`)
+# declare -A cnt
+# for pat in ${pats[*]} ; do
+#     tmp=${pat%/*}
+#     tmp=${tmp#*/}
+#     tmp=${tmp#*/}
+#     let "cnt[$tmp]+=1"
+# done
 
-for k in ${!cnt[*]} ; do
-    echo $k : ${cnt[$k]}
-done
+# for k in ${!cnt[*]} ; do
+#     echo $k : ${cnt[$k]}
+# done
+
+#收集编译成.o的文件名
+# > objs
+# dir=~/linux-master/
+# files=(`find $dir -name "*\.o"`)
+# for f in ${files[*]} ; do
+#     echo ${f#/root/linux-master} >> objs
+# done

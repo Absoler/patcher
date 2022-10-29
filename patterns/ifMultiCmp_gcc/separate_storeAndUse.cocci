@@ -109,8 +109,8 @@ x << separate_storeAndUse.cond;
 l << separate_storeAndUse.l1;
 r << separate_storeAndUse.l2;
 @@
-print "position:    " + p[0].line
-print "cond: "+x
-print "l1: "+l
-print "l2: "+r
+print "hit:" + p[0].line
+#print "cond: "+x
+#print "l1: "+l
+#print "l2: "+r
 print ""

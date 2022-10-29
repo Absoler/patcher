@@ -8,6 +8,7 @@ projects=( linux-master/ )
 checks=(`find $check_dir -name "*\.cocci" -type f`)
 
 > matched.out
+> pure_matched.out
 > timeout.out
 cnt=0
 for project in ${projects[*]} ; do
@@ -17,15 +18,16 @@ for project in ${projects[*]} ; do
     echo ${#files[*]} C files in total >> matched.out
 
     for file in ${files[*]} ; do
-        file=./repo/linux-master/${file%.*}.c
+        file=./repo/$project/${file%.*}.c
         echo "      "$file     
         for check in ${checks[*]} ; do
-            res=`timeout 2s spatch -sp_file $check $file`
+            res=`timeout 2s spatch -j 4 -sp_file $check $file --no-includes`
             if [ $? -eq 124 ] ; then
                 echo $check $file >> timeout.out
             fi
             if [ -n "$res" ] ; then
                 echo "  "  $check $file >> matched.out
+                echo $file >> pure_matched.out
             fi
         done
         ((cnt++))

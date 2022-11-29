@@ -1,21 +1,31 @@
 #! /bin/bash
+#
+# args[1] is the tested description
+#
+
 # some dir
 test_dir=./repo/
-check_dir=./patterns/
+check_dir=./MatchPatterns/
 
 # projects=(`ls -F $test_dir | grep "/$"`)
 projects=( linux-master/ )
 checks=(`find $check_dir -name "*\.cocci" -type f`)
 
-> matched.out
-> pure_matched.out
-> timeout.out
+if [ $# -ge 1 ]; then
+    prefix=$1
+else
+    prefix=""
+fi
+
+> ${prefix}matched.out
+> ${prefix}pure_matched.out
+> ${prefix}timeout.out
 cnt=0
 for project in ${projects[*]} ; do
-    echo $project >> matched.out
+    echo $project >> ${prefix}matched.out
     # files=(`find $test_dir$project -name "*\.c" -type f`)
     files=(`cat ./objs`)
-    echo ${#files[*]} C files in total >> matched.out
+    echo ${#files[*]} C files in total >> ${prefix}matched.out
 
     for file in ${files[*]} ; do
         file=./repo/$project/${file%.*}.c
@@ -23,11 +33,11 @@ for project in ${projects[*]} ; do
         for check in ${checks[*]} ; do
             res=`timeout 2s spatch -j 4 -sp_file $check $file --no-includes`
             if [ $? -eq 124 ] ; then
-                echo $check $file >> timeout.out
+                echo $check $file >> ${prefix}timeout.out
             fi
             if [ -n "$res" ] ; then
-                echo "  "  $check $file >> matched.out
-                echo $file >> pure_matched.out
+                echo "  "  $check $file >> ${prefix}matched.out
+                echo $file >> ${prefix}pure_matched.out
             fi
         done
         ((cnt++))

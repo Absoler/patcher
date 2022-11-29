@@ -21,3 +21,12 @@
 # for f in ${files[*]} ; do
 #     echo ${f#/root/linux-master} >> objs
 # done
+
+# 看哪些.o文件的objdump输出包含 "demangle"
+files=(`cat objs`)
+for file in ${files[*]} ; do
+    s=`~/binutils-gdb/build/binutils/objdump -dl /root/linux-master/$file `
+    if [[ $s =~ "demangle" ]] ; then
+        echo $file
+    fi
+done

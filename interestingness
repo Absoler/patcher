@@ -1,14 +1,18 @@
+trigger:
+./patterns/ifMultiCmp_gcc/one_assign_and_other.cocci ./repo/linux-master///net/ipv4/igmp.c
+./patterns/ifMultiCmp_gcc/one_assign_and_other.cocci ./repo/linux-master///net/ipv6/mcast.c
+./patterns/ifMultiCmp_gcc/one_assign_and_other.cocci ./repo/linux-master///drivers/input/serio/i8042.c
+./patterns/ifMultiCmp_gcc/one_assign_and_other.cocci ./repo/linux-master///drivers/net/ethernet/intel/e1000e/phy.c
+
 ./patterns/ifMultiCmp_gcc/one_assign_and_return.cocci ./repo/linux-master/arch/alpha/kernel/core_mcpcia.c
 200
 
 ./patterns/delayAssign_gcc/simpleReturn.cocci ./repo/linux-master/arch/arm/probes/uprobes/core.c
 66
 
-./patterns/delayAssign_gcc/simpleReturn.cocci ./repo/linux-master/arch/arm64/kernel/probes/uprobes.c
+./patterns/delayAssign_gcc/simpleReturn.cocci ./repo/linux-master/arch/arm64/kernel/probes/uprobes.c  
 156
-
-./patterns/ifMultiCmp_gcc/two_assign_and_return.cocci ./repo/linux-master/./lib/syscall.c
-10  
+ 
 
 ./patterns/ifMultiCmp_gcc/separate_storeAndUse.cocci ./repo/linux-master/./lib/decompress_unlzma.c
 455 
@@ -18,3 +22,20 @@
 
 ./patterns/ifMultiCmp_gcc/one_assign_and_return.cocci ./repo/linux-master/./lib/stackdepot.c
 365 depot_index 是static
+
+./patterns/ifMultiCmp_gcc/assign_struct_and_use.cocci ./repo/linux-master/./lib/earlycpio.c
+
+./patterns/ifMultiCmp_gcc/assign_struct_and_use.cocci ./repo/linux-master///fs/inode.c
+2482
+
+one_assign_and_other
+./patterns/ifMultiCmp_gcc/one_assign_and_other.cocci ./repo/linux-master///drivers/acpi/device_sysfs.c
+./patterns/ifMultiCmp_gcc/one_assign_and_other.cocci ./repo/linux-master///drivers/acpi/acpica/psscope.c
+感觉也许赋值都要是常数才行
+./patterns/ifMultiCmp_gcc/one_assign_and_other.cocci ./repo/linux-master///drivers/acpi/acpica/dswexec.c 这个巨像，但还是变成了不同分支
+好像常数不能是true false
+./patterns/ifMultiCmp_gcc/one_assign_and_other.cocci ./repo/linux-master///block/blk-rq-qos.c
+./patterns/ifMultiCmp_gcc/one_assign_and_other.cocci ./repo/linux-master///drivers/gpu/drm/i915/display/intel_dpll_mgr.c 感觉if-cond必须是和0比较才行
+   ./patterns/ifMultiCmp_gcc/one_assign_and_other.cocci ./repo/linux-master///drivers/ata/libata-core.c 有点像
+      ./patterns/ifMultiCmp_gcc/one_assign_and_other.cocci ./repo/linux-master///drivers/ata/libahci.c 特别像，但可能是变量后面没用到，好像没赋值
+ ./patterns/ifMultiCmp_gcc/one_assign_and_other.cocci ./repo/linux-master///drivers/scsi/sd.c   也很像，但被编译优化掉了

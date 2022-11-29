@@ -1,0 +1,19 @@
+@repeat_inCallee@
+identifier callee, id;
+type t;
+binary operator bin;
+@@
+callee(..., t id, ...){
+...
+*   id
+...
+   id
+...
+
+}
+
+@callee_post@
+identifier repeat_inCallee.callee;
+expression g =~ "g_";
+@@
+* callee(..., g, ...)

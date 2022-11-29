@@ -1,9 +1,0 @@
-@gg@
-global idexpression g;
-@@
-*   g
-
-@script:python@
-g << gg.g;
-@@
-print "global "+g

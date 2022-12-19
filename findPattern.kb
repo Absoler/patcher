@@ -1,0 +1,26 @@
+#! /bin/bash
+#
+#   find which pattern(s) match the given code -- specified by args[1]
+#   pat_dir is specified by args[2]
+
+pat_dir=./
+if [ $# -ge 2 ] ; then
+    pat_dir=$2
+fi
+pats=(`find $pat_dir -name "*.cocci"`)
+matched=()
+
+for pat in ${pats[*]} ; do
+    res=`timeout 2s spatch -j 2 --sp-file $pat $1 --no-includes`
+    if [ -n "$res" ] ; then
+        matched+=($pat)
+    fi
+done
+
+echo
+echo 
+echo matched:
+for pat in ${matched[*]} ; do
+    echo $pat
+    spatch -j 2 --sp-file $pat $1 --no-includes 2>/dev/null
+done

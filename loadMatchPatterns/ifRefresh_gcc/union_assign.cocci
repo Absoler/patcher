@@ -49,19 +49,20 @@ expression g;   // double-read obj  不清楚为什么这里不能加正则"^g_"
 identifier f1, f2, f3;
 expression other;
 position p1, p2;
+assignment operator assi_op1, assi_op2, assi_op3;
 @@
 
-*   u.f1 = g@p1;
+*   u.f1 assi_op1 g@p1;
 ...
 (
-    other = u;
+    other assi_op2 u;
 |
-    other = u.f2;
+    other assi_op2 u.f2;
 )
 ...
 if(other){
     ...
-*   u.f1 = ...;@p2
+*   u.f1 assi_op3 ...;@p2
     ...
 }
 ...

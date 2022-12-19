@@ -5,6 +5,7 @@ identifier f1, f2;
 global idexpression cond =~ "[a-z]";
 expression struct other;
 position p;
+assignment operator assi_op1;
 @@
 (
 
@@ -113,7 +114,7 @@ if ( <+...
 if ( <+... 
 *   cond@p ...+> ){
     ...
-*   lvar = ...;
+*   lvar assi_op1 ...;
     ...
 }
 ...

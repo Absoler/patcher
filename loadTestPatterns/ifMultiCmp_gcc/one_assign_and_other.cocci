@@ -35,7 +35,7 @@
 // 最好分支里不要有太复杂的成分，不然容易按分支去翻译而不是直接比较后赋值
 expression  l, other, retVal;
 global idexpression cond =~ "[a-z]";
-assignment operator op;
+assignment operator assi_op1, assi_op2;
 position p;
 identifier bad_call;    //we don't want this
 expression base, pointer =~ "[a-z]";
@@ -70,13 +70,13 @@ if(<+... bad_call(...) ...+>){
     ...+>) {
     ...
 (   
-*   l = r1 \| l++ \| l-- \| ++l \| --l
+*   l assi_op1 r1 \| l++ \| l-- \| ++l \| --l
 ) 
     ... when != return retVal;
 } else {
     ...
 (   
-*   l = r2 \| l++ \| l-- \| ++l \| --l
+*   l assi_op2 r2 \| l++ \| l-- \| ++l \| --l
 ) 
     ...
 *   other = ...
@@ -97,7 +97,7 @@ if(<+... bad_call(...) ...+>){
     ...+>) {
     ...
 (   
-*   l = r1 \| l++ \| l-- \| ++l \| --l
+*   l assi_op1 r1 \| l++ \| l-- \| ++l \| --l
 )
     ... 
 *   other = ...
@@ -105,7 +105,7 @@ if(<+... bad_call(...) ...+>){
 } else {
     ...
 (   
-*   l = r2 \| l++ \| l-- \| ++l \| --l
+*   l assi_op2 r2 \| l++ \| l-- \| ++l \| --l
 )
     ... when != return retVal;
 }

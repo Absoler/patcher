@@ -33,26 +33,28 @@ global idexpression cond;
 type t;
 statement s;
 position p;
+assignment operator op1, op2;
 @@
 func(..., t id ,...){
 ...
-    *id = e1
+    *id op1 e1
 ...
-s
+
 
 (
 if ( <+... cond ...+> ) {
     ...
 } else {
-    <+... 
-*   *id = e2@p ...+>
+    ...
+*   *id op2 e2@p 
+    ...
 }
 
 |
 
 if ( <+... cond ...+> ) {
     <+... 
-*   *id = e2@p ...+>
+*   *id op2 e2@p ...+>
 } else {
     ...
 }
@@ -61,7 +63,7 @@ if ( <+... cond ...+> ) {
 
 if ( <+... cond ...+> ) {
     <+... 
-*   *id = e2@p ...+>
+*   *id op2 e2@p ...+>
 } 
 )
 ...

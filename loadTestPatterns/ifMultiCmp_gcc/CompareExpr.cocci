@@ -21,6 +21,25 @@
     4020eb:	48 98                	cltq   
     4020ed:	48 89 05 9c 2f 00 00 	mov    %rax,0x2f9c(%rip)        # 405090 <g_339>
     
+
+    example: 4357
+
+    g_98[4][0] = g_280 = (g_234.f3 < 1) + 3;
+
+    func_1():
+    /home/csmith-2.3.0/test/output2.c:99
+    4024b0:	48 8b 05 99 33 00 00 	mov    0x3399(%rip),%rax        # 405850 <g_234+0x10>
+    4024b7:	48 8b 0d 92 33 00 00 	mov    0x3392(%rip),%rcx        # 405850 <g_234+0x10>
+    4024be:	48 f7 d8             	neg    %rax
+    4024c1:	19 c0                	sbb    %eax,%eax
+    4024c3:	83 c0 04             	add    $0x4,%eax
+    4024c6:	48 f7 d9             	neg    %rcx
+    4024c9:	18 d2                	sbb    %dl,%dl
+    4024cb:	89 05 6f 35 00 00    	mov    %eax,0x356f(%rip)        # 405a40 <g_98+0x60>
+    4024d1:	83 c2 04             	add    $0x4,%edx
+    4024d4:	88 15 2e 33 00 00    	mov    %dl,0x332e(%rip)        # 405808 <g_280>
+
+    // load and assign separately
 */
 expression cond, addr;
 binary operator cmp =~ ">|<|==|!=|\|";

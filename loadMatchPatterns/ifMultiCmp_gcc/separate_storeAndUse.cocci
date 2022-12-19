@@ -1,6 +1,6 @@
 @separate_storeAndUse@
 //  ifMultiCmp_gcc
-//142, 在if两个分支中各做一件事，并且之后会用到它
+//142, 在if两个分支中各做一件事，并且之后会用到它，只有这一个
 global idexpression cond =~ "[a-z]", g1, g2;
 expression l1, l2, r1, r2;
 position p;

@@ -23,10 +23,47 @@
 # done
 
 # 看哪些.o文件的objdump输出包含 "demangle"
-files=(`cat objs`)
+# files=(`cat objs`)
+# for file in ${files[*]} ; do
+#     s=`~/binutils-gdb/build/binutils/objdump -dl /root/linux-master/$file `
+#     if [[ $s =~ "demangle" ]] ; then
+#         echo $file
+#     fi
+# done
+
+# 收集某种pattern匹配出来的代码，以及对应的反汇编
+# match_dir=$1
+# pat_dir=$2
+# i=0
+# for line in `cat $match_dir/matched.out` ; do
+#     if [ $[i%2] == 1 ] ; then
+#         num=`echo $line | sed "s%\([0-9]\+\).*%\1%"`
+#         # if [ $num -le 3971 ] ; then
+#         #     continue
+#         # fi
+#         cp $match_dir/../patterns/$line $pat_dir/$line
+        
+#         if [ $num -le 3971 ] ; then
+#             gcc-12.1 -c -O1 $pat_dir/$line -w -gdwarf-4 -o $pat_dir/${line%.c}.o
+#         else
+#             gcc-12.1 -c -O2 $pat_dir/$line -w -gdwarf-4 -o $pat_dir/${line%.c}.o
+#         fi
+#         objdump -dl $pat_dir/${line%.c}.o > $pat_dir/${line%output.c}.disas
+#     fi
+#     ((i++))
+
+# done
+
+# 编译目录中的全部源码
+pat_dir=$1
+files=(`ls $pat_dir | grep "\.c"`)
 for file in ${files[*]} ; do
-    s=`~/binutils-gdb/build/binutils/objdump -dl /root/linux-master/$file `
-    if [[ $s =~ "demangle" ]] ; then
-        echo $file
+    num=`echo $file | sed "s%\([0-9]\+\).*%\1%"`
+    if [ $num -le 3971 ] ; then
+        opt=-O1
+    else
+        opt=-O2
     fi
+    gcc-12.1 -c $pat_dir/$file -w -gdwarf-4 $opt -o $pat_dir/${file%.c}.o
+    objdump $pat_dir/${file%.c}.o -dl > $pat_dir/${file%.c}.disas
 done

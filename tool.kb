@@ -55,15 +55,30 @@
 # done
 
 # 编译目录中的全部源码
-pat_dir=$1
-files=(`ls $pat_dir | grep "\.c"`)
+# pat_dir=$1
+# files=(`ls $pat_dir | grep "\.c"`)
+# for file in ${files[*]} ; do
+#     num=`echo $file | sed "s%\([0-9]\+\).*%\1%"`
+#     if [ $num -le 3971 ] ; then
+#         opt=-O1
+#     else
+#         opt=-O2
+#     fi
+#     gcc-12.1 -c $pat_dir/$file -w -gdwarf-4 $opt -o $pat_dir/${file%.c}.o
+#     objdump $pat_dir/${file%.c}.o -dl > $pat_dir/${file%.c}.disas
+# done
+
+# 将目录下的.o文件反汇编为.dis文件
+# dir=$1
+# files=(`find $dir -name "*.o"`)
+# for file in ${files[*]} ; do
+#     objdump -dl $file > ${file%.o}.dis
+#     echo ${file%.o}.dis
+# done
+
+# 将目录下.o文件都删除
+dir=$1
+files=(`find $dir -name "*.o"`)
 for file in ${files[*]} ; do
-    num=`echo $file | sed "s%\([0-9]\+\).*%\1%"`
-    if [ $num -le 3971 ] ; then
-        opt=-O1
-    else
-        opt=-O2
-    fi
-    gcc-12.1 -c $pat_dir/$file -w -gdwarf-4 $opt -o $pat_dir/${file%.c}.o
-    objdump $pat_dir/${file%.c}.o -dl > $pat_dir/${file%.c}.disas
+    rm $file
 done

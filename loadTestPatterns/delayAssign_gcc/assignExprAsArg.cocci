@@ -48,4 +48,4 @@ l.f
 @script:python@
 p << assignExprAsArg.p;
 @@ 
-print "hit:"+p[0].line
+print("hit:"+p[0].line)

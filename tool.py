@@ -12,6 +12,7 @@ import os
 import re
 import json
 import sys
+from pathlib import Path
 pairs = []  # pass pair or read from matched.out
 VERSION = 3
 if VERSION != 3:
@@ -31,13 +32,19 @@ if VERSION != 3:
         #     out.write(line.strip()+"\n")
         print(js)
 else:
-    files = os.popen(f"ls {sys.argv[1]} | grep '\.c'")
-    for _file in files:
-        file = (sys.argv[1]+"/"+_file).strip()
+    _src = Path(sys.argv[1])
+    if _src.is_dir():
+        files = os.popen(f'find {sys.argv[1]} -name "*.c"').readlines()
+        files = [ file.strip() for file in files if len(file) > 0 ]
+    else:
+        files = [sys.argv[1]]
+    for file in files:
+        # print(file)
+        _pat = Path(sys.argv[2])
         patterns = []
-        if sys.argv[2].endswith("/"):
-            patterns = os.popen(f"ls {sys.argv[2]}").read().split("\n")
-            patterns = [ sys.argv[2]+pat for pat in patterns if len(pat)>0 and pat.endswith(".cocci") ]
+        if _pat.is_dir():
+            patterns = os.popen(f'find {sys.argv[2]} -name "*.cocci"').readlines()
+            patterns = [ pat.strip() for pat in patterns if len(pat)>0 ]
         else:
             patterns.append(sys.argv[2])
         

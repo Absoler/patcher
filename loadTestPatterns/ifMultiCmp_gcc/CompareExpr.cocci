@@ -71,4 +71,4 @@ cmp << compare_in_expr.cmp;
 p << compare_in_expr.p;
 @@ 
 print cmp
-print "hit:" + p[0].line
+print("hit:"+p[0].line)

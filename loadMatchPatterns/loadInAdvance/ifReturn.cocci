@@ -99,4 +99,4 @@ if(...){
 p1 << load_retVal_inAdvance.p1;
 p2 << load_retVal_inAdvance.p2;
 @@
-print "hit:" + p1[0].line + " " + p2[0].line
+print("hit:" + p1[0].line + " " + p2[0].line)

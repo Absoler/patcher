@@ -37,4 +37,4 @@ n << simpleReturn.lhs;
 p1 << simpleReturn.p1;
 p2 << simpleReturn.p2;
 @@
-print "hit:" + p1[0].line + " " + p2[0].line
+print("hit:" + p1[0].line + " " + p2[0].line)

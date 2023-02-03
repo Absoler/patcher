@@ -116,5 +116,5 @@ if(<+... bad_call(...) ...+>){
 //x << one_assign_and_other.cond;
 p << one_assign_and_other.p;
 @@
-print "hit:"+p[0].line
+print("hit:"+p[0].line)
 #cocci.print_sec(p[0], "sec")

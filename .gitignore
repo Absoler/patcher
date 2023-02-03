@@ -3,3 +3,5 @@ repo/*
 .vscode/*
 
 test/*
+
+./objs

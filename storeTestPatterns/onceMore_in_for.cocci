@@ -3,17 +3,18 @@ identifier func =~ "^func";
 statement anything;
 type t;
 @@
-*  func(...){
+t  func(...){
     ...
 }
 
 @forLoop depends on target_func@
 statement anything;
 identifier target_func.func;
+expression init, cond, incr;
 @@
 func(...){
-    ...
-    for(...;...;...)
+    <+... 
+    for(...;cond;incr)
 *       anything
-    ...
+    ...+>
 }

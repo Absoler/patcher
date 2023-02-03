@@ -13,4 +13,4 @@ position p;
 @script:python@
 p << consecutive_assign.p;
 @@
-print "hit:" + p[0].line
+print("hit:" + p[0].line)

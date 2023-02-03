@@ -52,4 +52,8 @@ if ( <+...
 x << decl_union_return.cond;
 p << decl_union_return.p;
 @@
-print "hit:" + p[0].line
+<<<<<<< HEAD
+print("hit:" + p[0].line)
+=======
+print("hit:"+p[0].line)
+>>>>>>> f273173 (refine some scripts, python to python3 in patches)

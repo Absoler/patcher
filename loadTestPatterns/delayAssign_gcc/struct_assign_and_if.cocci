@@ -48,4 +48,4 @@ if ( <+... es.f1 || es.f2@p1 ...+> ) {
 p1 << struct_assign_and_if.p1;
 p2 << struct_assign_and_if.p2;
 @@
-print "hit:" + p1[0].line + " " + p2[0].line
+print("hit:" + p1[0].line + " " + p2[0].line)

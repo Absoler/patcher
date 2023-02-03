@@ -70,5 +70,5 @@ position p;
 cmp << compare_in_expr.cmp;
 p << compare_in_expr.p;
 @@ 
-print cmp
-print("hit:"+p[0].line)
+print(cmp)
+print("hit:" + p[0].line)

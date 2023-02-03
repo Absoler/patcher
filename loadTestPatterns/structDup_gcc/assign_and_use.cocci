@@ -11,4 +11,4 @@ return s;
 @script:python@
 p << assign_and_use.p;
 @@
-print("hit:"+p[0].line)
+print("hit:" + p[0].line)

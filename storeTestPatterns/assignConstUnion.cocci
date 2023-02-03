@@ -2,9 +2,9 @@
 identifier utype, u;
 @@
 (
-    const union utype u[...] = ...; 
+    union utype u[...] = ...; 
 |
-    const union utype u = ...; 
+    union utype u = ...; 
 )
 
 @assign_const_union depends on decl_const_union@
@@ -21,7 +21,8 @@ expression lval;
     union U1 g_52 = {0x4523830AL};
 
     void __attribute__ ((noinline)) func_7() {
-        const union U1 d[2] = {6,6,6};
+        const union U1 d[2] = {6,6,6};      
+        // 780 不需要 const
         g_52 = d[0];
     }
 

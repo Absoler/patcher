@@ -22,7 +22,7 @@ if VERSION != 3:
         pairs = os.popen("cat ./matched.out").read().split("\n")
 
     for pair in pairs:
-        minfo = os.popen("timeout 2s spatch -j 2 --sp-file "+ pair +" --no-includes").read()
+        minfo = os.popen("timeout 10s spatch -j 2 --sp-file "+ pair +" --no-includes").read()
         lines = re.findall(r'hit\:(.*)\n', minfo)
         srcfile = pair.split()[1]
         lines = list(set(lines))
@@ -50,7 +50,7 @@ else:
         
         # print(patterns)
         for pat in patterns:
-            minfo = os.popen("timeout 2s spatch -j 2 --sp-file "+ pat + " " + file +" --no-includes").read()
+            minfo = os.popen("timeout 10s spatch -j 2 --sp-file "+ pat + " " + file +" --no-includes").read()
             # print(f"minfo {minfo}")
             lines = list(set(re.findall(r'hit\:(.*)\n', minfo)))
             # print(f"lines {lines}")

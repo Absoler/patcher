@@ -31,7 +31,7 @@ cnt=0
         file=$project/${file%.*}.c
         echo "      "$file     
         for check in ${checks[*]} ; do
-            res=`timeout 2s spatch -j 4 -sp_file $check $file --no-includes`
+            res=`timeout 10s spatch -j 4 -sp_file $check $file --no-includes`
             if [ $? -eq 124 ] ; then
                 echo $check $file >> ${prefix}timeout.out
             fi

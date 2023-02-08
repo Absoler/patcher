@@ -30,7 +30,7 @@ for i in range(startIndex, sum):
     patterns = [ pat for pat in patterns if pat.strip() != "" ]
     # print(patterns)
     for pat in patterns:
-        minfo = os.popen("timeout 2s spatch -j 2 --sp-file "+ pat + " " + file +" --no-includes").read()
+        minfo = os.popen("timeout 10s spatch -j 2 --sp-file "+ pat + " " + file +" --no-includes").read()
         # print(f"minfo {minfo}")
         lines = list(set(re.findall(r'hit\:(.*)\n', minfo)))
         # print(f"lines {lines}")

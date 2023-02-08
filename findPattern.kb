@@ -11,7 +11,7 @@ pats=(`find $pat_dir -name "*.cocci"`)
 matched=()
 
 for pat in ${pats[*]} ; do
-    res=`timeout 2s spatch -j 2 --sp-file $pat $1 --no-includes`
+    res=`timeout 10s spatch -j 2 --sp-file $pat $1 --no-includes`
     if [ -n "$res" ] ; then
         matched+=($pat)
     fi

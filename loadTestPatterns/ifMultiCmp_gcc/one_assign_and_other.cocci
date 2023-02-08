@@ -41,7 +41,7 @@ identifier bad_call;    //we don't want this
 expression base, pointer =~ "[a-z]";
 identifier fld;
 global idexpression g =~ "[a-z]";
-constant r1, r2;
+expression r1, r2;
 @@
 
 (

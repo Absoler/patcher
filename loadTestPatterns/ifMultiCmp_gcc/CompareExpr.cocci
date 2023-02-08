@@ -42,7 +42,7 @@
     // load and assign separately
 */
 expression cond, addr;
-binary operator cmp =~ ">|<|==|!=|\|";
+binary operator cmp = {>, <, ==, !=, <=, >=};
 binary operator op1;
 constant c1, c2;
 expression e1, e2;

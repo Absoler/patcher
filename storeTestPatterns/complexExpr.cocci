@@ -18,8 +18,8 @@
     401246:	89 05 54 0b 20 00    	mov    %eax,0x200b54(%rip)        # 601da0 <g_308>
 
 */
-binary operator op1 =~ "!=|&|\|", op2 =~ "!=|&|\|";
-assignment operator op3 =~ "&=|\|=", op4 =~ "&=|\|=";
+binary operator op1 = {!=, &, |, &&, ||}, op2 = {!=, &, |, &&, ||};
+assignment operator op3 = {&=, |=}, op4 = {&=, |=};
 expression e1, e2, e3;
 position p;
 @@

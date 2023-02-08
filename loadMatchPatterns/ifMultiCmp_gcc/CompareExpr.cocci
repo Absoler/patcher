@@ -42,7 +42,7 @@
     // load and assign separately
 */
 expression cond, addr;
-binary operator cmp =~ ">|<|==|!=|\|";
+binary operator cmp = {>, <, ==, !=, <=, >=};
 binary operator op1;
 constant c1, c2;
 expression e1, e2;
@@ -64,11 +64,17 @@ position p;
 *   (cond cmp &addr) op1 c2@p
 |
 *   c2 op1 (cond cmp &addr)@p
+|
+*   e1 && (cond cmp e2)@p
+|
+*   cond cmp e2@p && e1
+|
+*   e1 || (cond cmp e2)@p
+|
+*   cond cmp e2@p || e1
 )
 
 @script:python@
-cmp << compare_in_expr.cmp;
 p << compare_in_expr.p;
 @@ 
-print(cmp)
 print("hit:" + p[0].line)

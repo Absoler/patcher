@@ -246,8 +246,4 @@ if ( <+...
 @script:python@
 p << no_else.p;
 @@
-<<<<<<< HEAD
-print("hit:"+p[0].line)
-=======
 print("hit:" + p[0].line)
->>>>>>> temp

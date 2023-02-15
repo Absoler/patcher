@@ -182,11 +182,7 @@ if (
 @script:python@
 p << one_assign_and_return.p;
 @@
-<<<<<<< HEAD
-print("hit:"+p[0].line)
-=======
 print("hit:" + p[0].line)
->>>>>>> temp
 
 
 @no_else@

@@ -50,11 +50,45 @@ else:
         
         # print(patterns)
         for pat in patterns:
-            minfo = os.popen("timeout 10s spatch -j 2 --sp-file "+ pat + " " + file +" --no-includes").read()
+            minfo = os.popen("timeout 10s spatch -j 8 --sp-file "+ pat + " " + file +" --no-includes").read()
+
+            # print("\n\n\n")
+            # print(minfo)
+            # print("\n\n\n")
             # print(f"minfo {minfo}")
-            lines = list(set(re.findall(r'hit\:(.*)\n', minfo)))
+
+            '''
+            json format
+
+            [
+                file_name, 
+                [
+                    {
+                        "var" : <string>, 
+                        "lineNo" : <string>
+                    } 
+                ] 
+            ]
+
+            '''
+
+            json_data = [file, []]
+            minfo_lst = minfo.split('\n')
+            for i, line in enumerate(minfo_lst):
+                if "hit" in line and "target" in minfo_lst[i+1]:
+                    lineStr = re.findall(r'hit\:\s*(.*)', line)
+                    var = re.findall(r'target\:\s*(.*)', minfo_lst[i+1])
+                    # print(lineStr)
+                    # print(var)
+                    json_data[1].append({"var":var[0], "lineNo":lineStr[0]})
+            
+
+
+            # lines = list(set(re.findall(r'hit\:\s*(.*)\n', minfo)))
             # print(f"lines {lines}")
-            if len(lines) == 0:
+            # if len(lines) == 0:
+            #     continue
+            if len(json_data[1]) == 0:
                 continue
-            js = json.dumps((file, lines))
+            js = json.dumps(json_data)
             print(js)

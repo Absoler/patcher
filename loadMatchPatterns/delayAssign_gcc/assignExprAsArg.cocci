@@ -47,5 +47,9 @@ l.f
 
 @script:python@
 p << assignExprAsArg.p;
+sExp << assignExprAsArg.sExp = "";
+uExp << assignExprAsArg.uExp = "";
 @@ 
 print("hit:"+p[0].line)
+target = sExp if sExp else uExp
+print("target: " + target)

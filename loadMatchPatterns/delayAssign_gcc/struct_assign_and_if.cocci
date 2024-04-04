@@ -4,6 +4,11 @@
 
     gcc-12.1 -O1
 
+    struct S6 {
+        short  f0;
+        char  f1;
+        int  f2;
+    };
     void func_30() {
         struct S6 f[4][7];
         f[1][6] = g_36;
@@ -28,24 +33,62 @@
 
 */
 expression struct es;
+expression union eu;
 expression e;
 identifier f1, f2;
 position p1, p2;
 @@
+(
+    
 es = e;
 ...
 if ( <+... es.f1 || es.f2@p1 ...+> ) {
     <+...
-(
 *   es.f1@p2
-|
-*   es.f2@p2
-)
     ...+>
 }
+
+|
+
+es = e;
+...
+if ( <+... es.f2 || es.f1@p1 ...+> ) {
+    <+...
+*   es.f1@p2
+    ...+>
+}
+
+|
+
+eu = e;
+...
+if ( <+... eu.f1 || eu.f2@p1 ...+> ) {
+    <+...
+*   eu.f1@p2
+    ...+>
+}
+
+|
+
+eu = e;
+...
+if ( <+... eu.f2 || eu.f1@p1 ...+> ) {
+    <+...
+*   eu.f1@p2
+    ...+>
+}
+
+)
 
 @script:python@
 p1 << struct_assign_and_if.p1;
 p2 << struct_assign_and_if.p2;
+eu << struct_assign_and_if.eu = "";
+es << struct_assign_and_if.es = "";
+f1 << struct_assign_and_if.f1 = "";
+f2 << struct_assign_and_if.f2 = "";
 @@
 print("hit:" + p1[0].line + " " + p2[0].line)
+target = es if es else eu
+target += ("." + f1 if f1 else f2)
+print("target: " + target)

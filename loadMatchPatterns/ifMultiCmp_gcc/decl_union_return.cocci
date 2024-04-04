@@ -53,3 +53,5 @@ x << decl_union_return.cond;
 p << decl_union_return.p;
 @@
 print("hit:"+p[0].line)
+target = x
+print("target: " + target)

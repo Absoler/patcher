@@ -51,7 +51,7 @@
             g_4 = 0;
         }
     }
-
+    // 可以认为在g_217 check的不同分支后，d被使用了两次，一次是赋值给g_235，一次是参与取余运算
     0000000000401fe0 <func_1>:
     func_1():
     /home/csmith_load_o3/test/output2.c:75
@@ -116,5 +116,9 @@ position p;
 
 @script:python@
 p << Assign_with_logic.p;
+g << Assign_with_logic.g = "";
+el << Assign_with_logic.el = "";
 @@
 print("hit: " + p[0].line)
+target = g if g else el
+print("target: " + target)

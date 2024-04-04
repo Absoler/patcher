@@ -33,8 +33,9 @@ lhs@p1 op rval;
 *   return lhs@p2;
 
 @script:python@
-n << simpleReturn.lhs;
 p1 << simpleReturn.p1;
 p2 << simpleReturn.p2;
+rval << simpleReturn.rval = "";
 @@
 print("hit:" + p1[0].line + " " + p2[0].line)
+print("target: " + rval)

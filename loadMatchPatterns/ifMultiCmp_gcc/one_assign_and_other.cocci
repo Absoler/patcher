@@ -113,8 +113,17 @@ if(<+... bad_call(...) ...+>){
 )
 
 @script:python@
-//x << one_assign_and_other.cond;
+base << one_assign_and_other.base = "";
+fld << one_assign_and_other.fld = "";
+pointer << one_assign_and_other.pointer = "";
+g << one_assign_and_other.g = "";
 p << one_assign_and_other.p;
 @@
 print("hit:"+p[0].line)
-#cocci.print_sec(p[0], "sec")
+if base and fld:
+    target = base + "->" + fld
+elif pointer:
+    target = "*" + pointer
+else:
+    target = g
+print("target: " + target)

@@ -1,5 +1,5 @@
 @union_assign@
-/*
+/*  这个例子似乎应该属于延迟拷贝
     example: 662
 
     union U1 {
@@ -71,5 +71,9 @@ u.f3
 @script:python@
 p1 << union_assign.p1;
 p2 << union_assign.p2;
+u << union_assign.u = "";
+f1 << union_assign.f1 = "";
 @@
-print "hit: " + p1[0].line + " " + p2[0].line
+print("hit: " + p1[0].line + " " + p2[0].line)
+target = u + "." + "f1"
+print("target: " + target)

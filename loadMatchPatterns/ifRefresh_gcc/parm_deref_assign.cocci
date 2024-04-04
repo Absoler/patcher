@@ -70,10 +70,11 @@ if ( <+... cond ...+> ) {
 }
 
 @script:python@
-cond << parm_deref_assign.cond;
-id << parm_deref_assign.id;
+cond << parm_deref_assign.cond = "";
+id << parm_deref_assign.id = "";
 p << parm_deref_assign.p;
 @@
 #print "cond:    " + cond
-print "id:  " + id
 print("hit:" + p[0].line)
+target = id
+print("target: " + target)

@@ -166,11 +166,10 @@ if(<+...
 
 @script:python@
 p <<  two_things.p;
-x <<  two_things.cond;
-l1 <<  two_things.l1;
-l2 <<  two_things.l2;
+cond <<  two_things.cond = "";
+l1 <<  two_things.l1 = "";
+l2 <<  two_things.l2 = "";
 @@
 print("hit:" + p[0].line)
-#print " cond: " + x
-#print " l1: " + l1
-#print " l2: " + l2
+target = cond
+print("target: " + target)

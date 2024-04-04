@@ -40,6 +40,8 @@
     4024d4:	88 15 2e 33 00 00    	mov    %dl,0x332e(%rip)        # 405808 <g_280>
 
     // load and assign separately
+
+    is necessary to add expr `&addr` as cond object
 */
 expression cond, addr;
 binary operator cmp = {>, <, ==, !=, <=, >=};
@@ -57,14 +59,6 @@ position p;
 |
 *   c2 op1 (cond cmp c1)@p
 |
-*   (&addr cmp cond) op1 c2@p
-|
-*   c2 op1 (&addr cmp cond)@p
-|
-*   (cond cmp &addr) op1 c2@p
-|
-*   c2 op1 (cond cmp &addr)@p
-|
 *   e1 && (cond cmp e2)@p
 |
 *   cond cmp e2@p && e1
@@ -76,5 +70,8 @@ position p;
 
 @script:python@
 p << compare_in_expr.p;
+cond << compare_in_expr.cond = "";
 @@ 
 print("hit:" + p[0].line)
+target = cond
+print("target: " + target)

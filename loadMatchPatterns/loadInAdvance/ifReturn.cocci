@@ -98,5 +98,8 @@ if(...){
 @script:python@
 p1 << load_retVal_inAdvance.p1;
 p2 << load_retVal_inAdvance.p2;
+ret << load_retVal_inAdvance.ret = "";
 @@
 print("hit:" + p1[0].line + " " + p2[0].line)
+target = ret
+print("target: " + target)

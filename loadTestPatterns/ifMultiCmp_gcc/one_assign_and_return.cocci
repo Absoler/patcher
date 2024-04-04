@@ -1,8 +1,24 @@
 @one_assign_and_return@
 // 本pattern描述：在不同分支，对一个live变量的赋值不同，返回值也不同
-// 共四种情况，return位于false/true分支，return所在分支的赋值是否提前
-// 如果是对相同变量的赋值，但使用了不相同的指针，那将无法辨认
+//      |
+//      a
+//     / \
+//    b   c
+//    ret |
+//     \ /
+//      d
+//      |
+//     ret
 // 主路径末尾return的匹配一般省略，因为必定存在
+// a,b,c,d是四个对live global的赋值位置
+//  a可以代表对任一分支的赋值，因为if条件不确定=
+//  b确定是对左侧分支的赋值
+//  cd确定是对右侧分支的赋值
+// 因而共有5种组合 ac, ad, bc, bd, ab  // (ab*cd)+(acd*b)-b*cd
+// 加上对左侧属于true or false的讨论，共10种情况
+//
+// 如果是对相同变量的赋值，但使用了不相同的指针，那将无法辨认
+// 
 expression l, e, retVal;
 assignment operator assi_op1, assi_op2;
 identifier bad_call;    //we don't want this
@@ -30,8 +46,11 @@ don't need for test
 |
 */
 
-// 3710 3549
+// **********
+//  bc
+// **********
 /*
+    // 3710 3549
     example: 3549
 // 这里其实有别名的问题，对c和d的写并没有被识别到，识别的是引用g_40
     uint32_t func_11() {
@@ -94,10 +113,13 @@ if (
     ...
 }
 
+
 |
-//下面赋值都是把某个分支的赋值提前
-// 1059 2964
+// **********
+//  ad
+// **********
 /*
+// 1059 2964
     example: 2964
 
     int func_1() {
@@ -125,8 +147,8 @@ if (
     4011a9:	c3                   	retq 
 
 */
-*   l assi_op1 ...
-...
+*   l assi_op1 ... ;
+?   s
 if (
     <+... 
 (   base@p -> fld \|   *pointer@p \|   g@p
@@ -141,11 +163,30 @@ if (
 
 |
 
-
-//107 3265
-// 提前false分支的赋值，return在false分支
-*   l assi_op1 ...
+*   l assi_op1 ... ;
+?   s
+if (
+    <+... 
+(   base@p -> fld \|   *pointer@p \|   g@p
+)
+    ...+>
+    ){
+    ...
+}else{
+    ...
+*   return retVal;
+}
 ...
+*   l assi_op2 ...
+
+
+|
+// **********
+//  ab
+// **********
+//107 3265
+*   l assi_op1 ... ;
+?   s
 if (
     <+... 
 (   base@p -> fld \|   *pointer@p \|   g@p
@@ -156,13 +197,50 @@ if (
 *   l assi_op2 ...
     ...
 *   return retVal;
+}
+
+|
+
+*   l assi_op1 ... ;
+?   s
+if (
+    <+... 
+(   base@p -> fld \|   *pointer@p \|   g@p
+)
+    ...+>
+    ){...}else{
+    ...
+*   l assi_op2 ...
+    ...
+*   return retVal;
+}
+
+
+|
+// **********
+//  ac
+// **********
+*  l assi_op1 ...;
+?   s
+if (
+    <+... 
+(   base@p -> fld \|   *pointer@p \|   g@p
+)
+    ...+>
+    ){
+    ...
+*   return retVal;
+}else{
+    ...
+*   l assi_op2 ...
+    ...
 }
 
 |
 
 //2448
-*  l assi_op1 ...
-...
+*  l assi_op1 ...;
+?   s
 if (
     <+... 
 (   base@p -> fld \|   *pointer@p \|   g@p
@@ -176,6 +254,45 @@ if (
     ...
 *   return retVal;
 }
+
+
+|
+// **********
+//  bd
+// **********
+if (
+    <+... 
+(   base@p -> fld \|   *pointer@p \|   g@p
+)
+    ...+>
+    ){
+    ...
+*   l assi_op2 ...
+    ...
+*   return retVal;
+}
+?   s
+*  l assi_op1 ...;
+
+|
+
+if (
+    <+... 
+(   base@p -> fld \|   *pointer@p \|   g@p
+)
+    ...+>
+    ){ ... }else{
+    ...
+*   l assi_op2 ...
+    ...
+*   return retVal;
+}
+?   s
+*  l assi_op1 ...;
+
+
+
+
 
 )
 

@@ -125,7 +125,8 @@ if ( <+...
 )
 
 @script:python@
-x << assign_struct_and_use.cond;
+x << assign_struct_and_use.cond = "";
 p << assign_struct_and_use.p;
 @@
 print("hit:" + p[0].line)
+print("target: " + x)
